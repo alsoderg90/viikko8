@@ -1,0 +1,24 @@
+{
+  "name": "library-backend",
+  "version": "1.0.0",
+  "description": "ECHO is on.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alsoderg90/viikko8.git"
+  },
+  "author": "alexander södergård",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alsoderg90/viikko8/issues"
+  },
+  "homepage": "https://github.com/alsoderg90/viikko8#readme",
+  "dependencies": {
+    "apollo-server": "^2.18.2",
+    "graphql": "^15.3.0"
+  }
+}
