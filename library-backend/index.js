@@ -85,40 +85,40 @@ let books = [
 ]
 
 const typeDefs = gql`
-  type Mutation {
-      addBook(
-        title: String!
-        published: Int!
-        author: String!
-        genres: [String!]
-      ): Book
-      editAuthor(
-        name: String!
-        setBornTo: Int!
-      ): Author
-  }
+	type Book {
+		title: String!
+		published: Int!
+		author: String!
+		id: ID!
+		genres: [String]
+	}
 
-  type Query {
-      bookCount: Int!
-      authorCount: Int!
-      allBooks(author:String, genre:String): [Book!]!
-      allAuthors: [Author!]!
-  }
+	type Author {
+		name: String!
+		born: Int
+		bookCount: Int!
+		id: ID!
+	}
 
-  type Book {
-      title: String!
-      published: Int!
-      author: String!
-      id: ID!
-      genres: [String]
-  }
+	type Mutation {
+		addBook(
+			title: String!
+			published: Int!
+			author: String!
+			genres: [String!]
+		): Book
+		editAuthor(
+			name: String!
+			born: Int!
+		): Author
+	}
 
-  type Author {
-      name: String!
-      id: ID!
-      born: Int
-      bookCount: Int!
-  }
+	type Query {
+		bookCount: Int!
+		authorCount: Int!
+		allBooks(author:String, genre:String): [Book!]!
+		allAuthors: [Author!]!
+	}
 `
 
 const resolvers = {
@@ -127,41 +127,49 @@ const resolvers = {
     authorCount: () => authors.length,
     allBooks: (root, args) => {
       if (args.author && !args.genre) {
-        console.log('3', args, books)
-        console.log(typeof args)
         return books.filter(book => book.author === args.author)
       }
       if (args.genre && !args.author) {
-        console.log('2',args)
         return books.filter(book => book.genres.includes(args.genre))
       }
       if (args.genre && args.author) {
-        console.log('2',args)
         return books.filter(book =>
           book.genres.includes(args.genre)).filter(book =>
           book.author === args.author)
       }
       else {
-        console.log('1', args.author, books)
         return books
       }
     },
     allAuthors: () => authors
   },
   Mutation: {
-    addBook: (root, args) => {
-      const book = { ...args, id: uuid() }
-      books = books.concat(book)
-      return book
+	addBook: (root, args) => {
+		if (!authors.find((author) => author.name === args.author)) {
+		  const newAuthor = {
+			name: args.author,
+			id: uuid(),
+		  }
+		  authors = authors.concat(newAuthor)
+		}
+		const book = { ...args, id: uuid() }
+		books = books.concat(book)
+		return book
     },
     editAuthor: (root, args) => {
-      if (!authors.find(author => author.name === args.name)) return null
-      else {
-        const author = authors.find(author => author.name === args.name)
-        const authorEdited = { ...author, born: args.setBornTo }
-        return authors.map(author =>
-          author.name !== args.name ? author : authorEdited)
+	console.log('Author:', args.name, 'Birthyear:', args.born)
+      if (!authors.find((author) => author.name === args.name)) return null
+	  else {
+		authors = authors.map((author) =>
+        author.name === args.name
+          ? { ...author, name: args.name, born: args.born }
+          : author
+      )
+      return {
+        name: args.name,
+        born: args.born,
       }
+    }
     }
   },
   Author: {

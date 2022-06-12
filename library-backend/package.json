@@ -21,6 +21,7 @@
     "@apollo/client": "^3.2.2",
     "apollo-server": "^2.18.2",
     "cors": "^2.8.5",
-    "graphql": "^15.3.0"
+    "graphql": "^15.3.0",
+    "mongoose": "^6.3.8"
   }
 }
