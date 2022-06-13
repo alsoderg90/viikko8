@@ -7,14 +7,13 @@ const Authors = (props) => {
   const [name, setName ] = useState('')
   const [born, setYear] = useState('')
 
-  const [ setBornyear ] = useMutation(SET_BORN_YEAR)
-
-  const result = useQuery(ALL_AUTHORS, {
-    pollInterval: 2000  
+  const [ setBornyear ] = useMutation(SET_BORN_YEAR, {
+    refetchQueries: [  {query: ALL_AUTHORS} ]
   })
 
+  const result = useQuery(ALL_AUTHORS)
+
   const submit = async (event) => {
-	console.log(born, typeof(parseInt(born)))
     event.preventDefault()
     setBornyear({ variables: { name, born: parseInt(born) } })
     setName('')
@@ -54,10 +53,11 @@ const Authors = (props) => {
 			  </tr>
 			)
 		  }
- 
           )}
         </tbody>
       </table>
+	  {props.token ? 
+	  <>
       <h2>Set Birthyear</h2>
       <form onSubmit={submit}>
           <div>
@@ -71,10 +71,8 @@ const Authors = (props) => {
           </div>
           <button type='submit'>Update Author</button>
       </form>
- 
-
-
-
+	  </>
+	  : null}
     </div>
   )
 }
