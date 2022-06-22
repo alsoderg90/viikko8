@@ -18,12 +18,18 @@
   },
   "homepage": "https://github.com/alsoderg90/viikko8#readme",
   "dependencies": {
+    "@graphql-tools/schema": "^8.3.14",
     "apollo-server": "^2.21.2",
+    "apollo-server-core": "^3.9.0",
+    "apollo-server-express": "^3.9.0",
     "dotenv": "^9.0.2",
+    "express": "^4.18.1",
     "graphql": "^15.5.0",
+    "graphql-subscriptions": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.8",
     "mongoose-unique-validator": "^2.0.3",
+    "subscriptions-transport-ws": "^0.11.0",
     "uuid": "^8.3.2"
   }
 }

@@ -19,7 +19,7 @@ const Books = (props) => {
   const uniqueGenres = [...new Set(genres.map(book => book.genres).flat())].concat('all genres')
 
   const handleFilter = (genre) => {
-	setGenre(genre)
+	return setGenre(genre)
   }
 
   return (
