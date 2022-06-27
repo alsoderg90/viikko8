@@ -60,10 +60,10 @@ const resolvers = {
 		  // books = books.concat(book)
 		  // return book
 		  const currentUser = context.currentUser
-		  // if (!currentUser) {
-		  // 	console.log("not authenticated")
-		  // 	return
-		  // }
+		  if (!currentUser) {
+		  	console.log("not authenticated")
+		  	return
+		  }
 		  const book = await Book.findOne({ title: args.title })
 		  let author = await Author.findOne({ name: args.author.name })
 		  if (book) {

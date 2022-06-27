@@ -32,8 +32,6 @@ const start = async () => {
 	const httpServer = http.createServer(app)
 
 	const schema = makeExecutableSchema({ typeDefs, resolvers })
-
-
 	const subscriptionServer = SubscriptionServer.create(    
 		{      
 			schema,
